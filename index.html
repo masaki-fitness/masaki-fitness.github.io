@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>100個のアプリで月収100万円チャレンジ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #00BCD4;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes glow {
+            0% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+            50% {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+            }
+            100% {
+                text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            }
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin: 2rem 0;
+            line-height: 1.4;
+            animation: float 3s ease-in-out infinite, glow 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        h1 span {
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+            animation-delay: calc(0.1s * var(--i));
+        }
+
+        .graph {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin: 2rem 0;
+        }
+
+        .app-button {
+            width: 100%;
+            height: auto;
+        }
+
+        .app-button img {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+
+            .app-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span style="--i:1">1</span><span style="--i:2">0</span><span style="--i:3">0</span><span style="--i:4">個</span><span style="--i:5">の</span><span style="--i:6">ア</span><span style="--i:7">プ</span><span style="--i:8">リ</span><span style="--i:9">で</span><br>
+            <span style="--i:10">月</span><span style="--i:11">収</span><span style="--i:12">1</span><span style="--i:13">0</span><span style="--i:14">0</span><span style="--i:15">万</span><span style="--i:16">円</span><br>
+            <span style="--i:17">チ</span><span style="--i:18">ャ</span><span style="--i:19">レ</span><span style="--i:20">ン</span><span style="--i:21">ジ</span>
+        </h1>
+        
+        <div class="graph">
+            <canvas id="progressChart"></canvas>
+        </div>
+
+        <div class="app-grid">
+            <div class="app-button">
+                <a href="https://note.com/xr_masa/n/n07e34c4a0c03" target="_blank">
+                    <img src="images/icon_QuickMoney.png" alt="Quick Money App">
+                </a>
+            </div>
+            <div class="app-button">
+                <img src="images/Question.png" alt="Coming Soon" onclick="showComingSoonMessage()">
+            </div>
+            <div class="app-button">
+                <img src="images/Question.png" alt="Coming Soon" onclick="showComingSoonMessage()">
+            </div>
+            <div class="app-button">
+                <img src="images/Question.png" alt="Coming Soon" onclick="showComingSoonMessage()">
+            </div>
+            <div class="app-button">
+                <img src="images/Question.png" alt="Coming Soon" onclick="showComingSoonMessage()">
+            </div>
+            <div class="app-button">
+                <img src="images/Question.png" alt="Coming Soon" onclick="showComingSoonMessage()">
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        function showComingSoonMessage() {
+            Swal.fire({
+                title: 'まだアプリ作成中だよ',
+                text: '楽しみに待っていてね！',
+                imageUrl: 'images/Question.png',
+                imageWidth: 100,
+                imageHeight: 100,
+                confirmButtonText: 'わかった！',
+                background: '#fff',
+                color: '#00BCD4',
+                confirmButtonColor: '#00BCD4',
+                showClass: {
+                    popup: 'animate__animated animate__bounceIn'
+                }
+            });
+        }
+
+        const ctx = document.getElementById('progressChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['1つ目', '2つ目', '3つ目', '4つ目', '5つ目', '6つ目'],
+                datasets: [{
+                    label: '進捗',
+                    data: [0, 0, 0, 0, 0, 0],
+                    borderColor: 'white',
+                    borderWidth: 2,
+                    tension: 0.3,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'white'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.1)'
+                        },
+                        ticks: {
+                            color: 'white'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
